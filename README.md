@@ -19,7 +19,7 @@ Please make sure you have the GUID environment variable set:
 Example Playbook
 ----------------
 
-ansible -h hosts main.yml
+ansible -i hosts main.yml
 
 License
 -------
