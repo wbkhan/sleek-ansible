@@ -1,0 +1,10 @@
+---
+
+- name: You are hitting APP or not via LoadBalancer
+  uri:
+    url: http://frontend1.{{ GUID }}.example.opentlc.com
+
+
+- name: You are hitting APP or not via LoadBalancer                                                                                                                                                
+  uri:
+    url: http://frontend1.{{ GUID }}.example.opentlc.com

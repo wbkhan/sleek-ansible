@@ -1,0 +1,8 @@
+---
+#   Remove all repos
+#   Remove the base 3 tier app packages (haproxy, tomcat etc)
+
+- name: Delete the 3 Tier APP and Clean systems to be reused :) 
+  hosts: all
+  roles:
+    - cleaner

@@ -1,0 +1,45 @@
+---
+
+- hosts: all 
+  gather_facts: true
+
+  vars:
+    GUID: "{{ lookup('env','GUID') }}"
+# roles:
+ #   - osp-facts
+
+# Load Balancer
+
+- name: Setup HAProxy LoadBalancer
+  hosts: frontends
+  become: yes
+  roles:
+    - {name: core, tags: core}
+    - {name: lb, tags: [lbs, haproxy]}
+
+# Setup application servers tier
+
+- name: Setup App Services 
+  hosts: apps
+  become: yes
+  gather_facts: false
+  roles:
+    - {name: core, tags: core}
+    - {name: app-tier, tags: [apps, tomcat]}
+
+# Setup database tier
+
+- name: setup DataBases
+  become: yes
+  hosts: appdbs
+  roles:
+    - {name: core, tags: core}
+    - {name: geerlingguy.postgresql, tags: [dbs, postgres]}
+
+# Checking the work down now
+
+- name: Checking if LoadBalancer is responding and connecting to APP Services
+  become: yes
+  hosts: frontends 
+  roles:
+    - {name: checks, tags: checks}
